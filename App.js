@@ -1,19 +1,5 @@
-{/* <div id="parent">
-    <div id="child">
-        <h1>I'm h1 tag</h1>
-        <h2>I'm h2 tag</h2>
-    </div>
-    <div id="child2">
-        <h1>I'm h1 tag</h1>
-        <h2>I'm h2 tag</h2>
-    </div>
-</div> */}
-
-
-
-
-
-// const heading = React.createElement('h1',{className: "custom-heading"}, "Hello React");
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 const heading1 = React.createElement('h1',{}, "I'm h1 tag");
 const heading2 = React.createElement('h2',{}, "I'm h2 tag");
