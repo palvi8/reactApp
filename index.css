@@ -16,6 +16,10 @@
     list-style-type: none;
 }
 
+.login-btn{
+    padding: 0 10px;
+    margin: 0 10px;
+}
 .body-container{
     display:flex;
     flex-direction: column;
