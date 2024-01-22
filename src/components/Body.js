@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Resturant from "./Resturant";
 import Shimmer from "./Shimmer";
-import {restaurants} from "../utils/mockData";
 
 const Body = () => {
     const [resList, setResList] = useState([]);
+    const [filteredResList, setFilteredResList] = useState([]);
+    const [searchValue, setSearchValue] = useState("");
 
     useEffect(() => {
         fetchData();
@@ -15,22 +16,30 @@ const Body = () => {
        const json = await data.json();
        const newData = json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
        setResList(newData);
+       setFilteredResList(newData);
 
     }
     const getTopRatedResturants = () => {
         let getTopRatedResturantList = resList.filter((res) =>  res.info.avgRating > 4.2);
-        setResList(getTopRatedResturantList);
+        setFilteredResList(getTopRatedResturantList);
     }
-    if(resList.length === 0){
-        return <Shimmer/>
+
+    const getSearchedResturants = () => {
+        const filteredResturants = resList.filter((res) => res.info.name.toLowerCase().includes(searchValue.toLocaleLowerCase()));
+        setFilteredResList(filteredResturants);
     }
-    return (
+
+    return resList.length === 0 ? <Shimmer/> :(
       <div className="body-container">
         <div className="filter-container">
+            <div className="search-container">
+                <input className="search-input" value={searchValue} onChange={(event) => setSearchValue(event.target.value)}/>
+                <button className="search-btn" onClick={getSearchedResturants}>Seach</button>
+            </div>
             <button className="filter-btn" onClick={() => getTopRatedResturants()}>Top Rated Resturants</button>
         </div>
         <div className="resturant-container">
-            {resList.map((resturant) => <Resturant key={resturant.id} resData={resturant.info} />
+            {filteredResList.map((resturant) => <Resturant key={resturant.id} resData={resturant.info} />
             )}
           
         </div>
